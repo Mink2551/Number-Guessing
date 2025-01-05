@@ -144,7 +144,12 @@ body
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     height: 50%;
 }
-
+#heart {
+    border: none;
+    background: none;
+    width: 35px;
+    font-weight: bold;
+}
 #Enter
 {
     border: none;

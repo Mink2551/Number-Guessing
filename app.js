@@ -1,6 +1,7 @@
 let display = document.getElementById("display");
 let LB = document.getElementById("leftBtn");
 let RB = document.getElementById("rightBtn");
+let heart = document.getElementById("heart")
 let listInCommand = 0;
 let userInput = document.getElementById("userInput");
 let userEnter = document.getElementById("Enter");
@@ -9,15 +10,13 @@ userEnter.disabled = true;
 let userNumber = 0;
 let turn = 0;
 let userInteract = NaN;
-let AI_Life = 10; // AI life
 let min = 1, max = 100; // Min and max values for guessing\
 let AI_Guess
-let Player_Life = 5;
-
+let Life = 0;
+heart.value = `❤️ ${Life}`
 let gameState = {
     command: 0,
 };
-
 display.value = "Press Start! To go next";
 
 const handleCommand = (newCommand) => {
@@ -56,10 +55,12 @@ const checkUserNumber = () => {
                 }, 2000); // Delay of 1000 milliseconds (1 second)
             } else if (num > AI_Guess) {
                 display.value = "Too High"
-                Player_Life--
+                Life--
+                heart.value = `❤️ ${Life}`
             } else if (num < AI_Guess) {
                 display.value = "Too Low"
-                Player_Life--
+                Life--
+                heart.value = `❤️ ${Life}`
             }
 
             listInCommand = 3
@@ -93,9 +94,11 @@ const checkCommand = () => {
                 userInput.disabled = false
                 userEnter.disabled = false
                 turn = 3
+                Life += 5
+                heart.value = `❤️ ${Life}`
             }, 2000)
             setTimeout(function () {
-                display.value = `You have ${Player_Life} life lefts`
+                display.value = `You have ${Life} life lefts`
             }, 1000)
             AI_Guess = AI(min,max)
 
@@ -112,28 +115,30 @@ const checkCommand = () => {
 
         setTimeout(function () {
             display.value = "OK?";
-        }, 1000);
-
-        setTimeout(function () {
-            display.value = `I Have ${AI_Life} Life left`;
         }, 2000);
 
         setTimeout(function () {
-            display.value = "⬆ : Too High ⬇ : Too Low";
+            Life += 10
+            display.value = `I Have ${Life} Life left`;
+            heart.value = `❤️ ${Life}`
         }, 3000);
 
         setTimeout(function () {
-            aiTurn();
+            display.value = "⬆ : Too High ⬇ : Too Low";
         }, 4000);
+
+        setTimeout(function () {
+            aiTurn();
+        }, 6000);
     } else if (listInCommand == 3) {
-        if (Player_Life != 0) {
+        if (Life != 0) {
             setTimeout(function () {
                 display.value = "Guess My number :)"
                 userInput.disabled = false
                 userEnter.disabled = false
                 turn = 3
             }, 1000)
-            display.value = `You have ${Player_Life} life lefts`
+            display.value = `You have ${Life} life lefts`
         } else {
             display.value = "You Lose HAHA"
             setTimeout(function() {
@@ -151,7 +156,7 @@ const AI = (minimum, maximum) => {
 };
 
 const aiTurn = () => {
-    if (AI_Life == 0) {
+    if (Life == 0) {
         display.value = "You won. Congratulations!";
     
         setTimeout(function () {
@@ -172,18 +177,20 @@ const aiTurn = () => {
 
 const Game_play = () => {
     if (gameState.command == 1) {
-        AI_Life--;
+        Life--;
+        heart.value = `❤️ ${Life}`
         max = AI_Guess - 1;  // Adjust the maximum range for the next guess
-        display.value = `Too High! I have ${AI_Life} life left.`;
+        display.value = `Too High! I have ${Life} life left.`;
         setTimeout(() => {
             aiTurn(); // AI takes the next turn after feedback
         }, 1000);
     };
 
     if (gameState.command == 3) {
-        AI_Life--;
+        Life--;
+        heart.value = `❤️ ${Life}`
         min = AI_Guess + 1;  // Adjust the minimum range for the next guess
-        display.value = `Too Low! I have ${AI_Life} life left.`;
+        display.value = `Too Low! I have ${Life} life left.`;
         setTimeout(() => {
             aiTurn(); // AI takes the next turn after feedback
         }, 1000);
