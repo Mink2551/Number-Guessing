@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game">
+        <div id="display-box">
+            <input type="text" id="display" readonly>
+        </div>
+        <div class="input">
+            <input type="text" id="userInput">
+            <button id="Enter" onclick="checkUserNumber()">Enter</button>
+        </div>
+        <div id="keys">
+            <button onclick="handleCommand(1)" id="leftBtn" class="btn leftBtn">⬆</button>
+            <button onclick="handleCommand(2)" class="btn startBtn">Start</button>
+            <button onclick="handleCommand(3)" id="rightBtn" class="btn rightBtn">⬇</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
